@@ -34,7 +34,9 @@ export default function App(){
     }
   }
 
-
+const clearMemory = () =>{
+  
+}
   }
   return (
     <View style={ StyleSheet.container}>
