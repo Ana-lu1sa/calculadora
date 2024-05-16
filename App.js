@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import {StyleSheet, View} from 'react-native'
 import Button from '.src/components/Button'
 import Display from "./src/components/Display";
 
+const inicialState = {
+  displayValue: '0',
+  clearDisplay: false,
+  operation: null,
+  values: [0,0],
+  current: 0
+}
+
+
 export default function App(){
-  state = {
-    DisplayValue: '0'
-  }
-  function addDigit (n) {
-    this.setState = ({displayValue : n})
-  }
-  function clearMemory(){
-    this.setState = ({displayValue : '0'})
+  const [state, setState] = useState(inicialState);
+
+  const addDigit = n => {
+    const clearDisplay = state.displayValue === '0' ||
+    state.clearDisplay;
+    if (n === '.' && ! clearDisplay && state.displayValue.includes ('.')){
+      return;
+    }
+
+    const currentValue = clearDisplay ? '' : state.displayValue;
+    const displayValue = currentValue + n;
+    setState({...state, displayValue, clearDisplay: false});
+
+    if( n !== '.') {
+      const newValue = parseFloat(displayValue);
+      const values = [...state, Values];
+      values [state.current] = newValue;
+      setState({...state, values});
+    }
   }
 
-  setOperation = operation => {
 
   }
   return (
@@ -42,7 +61,7 @@ export default function App(){
       </View>
       </View>
   );
-  }
+  
   const styles = StyleSheet.create({
     container:{
       flex: 1
